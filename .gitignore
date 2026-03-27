@@ -45,6 +45,7 @@ machine-learning/data/
 *.h5
 *.pt
 *.pth
+veri-ortami/
 
 # =========================
 # Mobil (Flutter)
