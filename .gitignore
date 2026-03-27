@@ -1,0 +1,61 @@
+# =========================
+# İşletim Sistemi ve IDE Ayarları
+# =========================
+.DS_Store
+Thumbs.db
+.directory
+*~
+.vscode/
+.idea/
+
+# =========================
+# Çevre Değişkenleri ve Gizli Dosyalar
+# =========================
+.env
+.env.*
+*.local
+
+# =========================
+# Backend (NodeJS) ve Frontend
+# =========================
+node_modules/
+npm-debug.log
+yarn-error.log
+yarn-debug.log
+pnpm-debug.log
+backend/dist/
+frontend/dist/
+
+# =========================
+# Makine Öğrenmesi (Python)
+# =========================
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+env/
+.venv/
+.pytest_cache/
+# Devasa veri setleri ve modeller
+machine-learning/data/
+*.csv
+*.tsv
+*.dat
+*.pkl
+*.h5
+*.pt
+*.pth
+
+# =========================
+# Mobil (Flutter)
+# =========================
+.dart_tool/
+.packages
+.pub-cache/
+.pub/
+mobile/build/
+.flutter-plugins
+.flutter-plugins-dependencies
+mobile/ios/Pods/
+mobile/ios/.symlinks/
+mobile/android/.gradle/
