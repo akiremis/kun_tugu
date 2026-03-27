@@ -76,3 +76,9 @@ xgb.plot_importance(model, importance_type='weight', max_num_features=10)
 plt.title('XGBoost Özellik Önemi (Feature Importance)')
 plt.savefig('ozellik_onemi.png', bbox_inches='tight')
 print("Grafik 'ozellik_onemi.png' adıyla proje klasörüne kaydedildi.")
+
+import joblib
+
+# Eğitilmiş modeli bilgisayara dosya olarak kaydediyoruz
+joblib.dump(model, 'xgboost_firtina_modeli.pkl')
+print("Model 'xgboost_firtina_modeli.pkl' olarak başarıyla kaydedildi.")
