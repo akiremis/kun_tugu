@@ -5,19 +5,30 @@ const forecastSchema = new mongoose.Schema({
         type: Date,
         default: Date.now,
     },
-    // Gelen Yeni Veriler (Modelin Girdisi)
-    ham_veri: {
-        type: [Number], // 15 elemanlı dizi burada duracak
-        required: true,
-    },
-    // Modelin Sonuçları
     tahmin_edilen_kp: {
         type: Number,
         required: true,
     },
-    alarm_durumu: {
-        type: String,
-        enum: ["GUVENLI", "UYARI", "TEHLIKE"],
+    bizim_uyari_sistemimiz: {
+        durum: { type: String, enum: ["GUVENLI", "UYARI", "TEHLIKE"] },
+        renk: String,
+    },
+    noaa_standartlari: {
+        g_olcegi: String,
+        g_aciklama: String,
+    },
+    harita_verisi: {
+        etkilenen_minimum_enlem: Number,
+        etki_alani_aciklamasi: String,
+    },
+    ham_veriler: {
+        bz_gsm: Number,
+        ruzgar_hizi: Number,
+        proton_yogunlugu: Number,
+    },
+    // ONNX modeline giren orijinal 15'li dizi (Hata ayıklama ve makine öğrenmesi logları için)
+    model_girdi_dizisi: {
+        type: [Number],
         required: true,
     },
 });

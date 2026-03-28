@@ -1,19 +1,31 @@
-const port = 8080;
+require("dotenv").config();
 
 const express = require("express");
 const path = require("path");
+const connectDB = require("./src/utils/db"); // Veritabanı fonksiyonunu içeri al
+const apiRoutes = require("./src/routes/api-routes");
+const { startCron } = require("./src/services/cronService");
 
 const app = express();
-const apiRoutes = require("./src/routes/api-routes");
 
-app.use("/api", apiRoutes);
+// 2. Veritabanına Bağlan (Bağlantı kurulmadan API çalışmamalı)
+connectDB();
+
 app.use(express.json());
 
-app.get("/", (req, res, next) => {
-    res.sendFile(path.join(__dirname, "/src/views/index.html"));
+// API Rotaları
+app.use("/api", apiRoutes);
+
+// Frontend Bilgilendirme Sayfası
+app.get("/", (req, res) => {
+    res.sendFile(path.join(__dirname, "src/views/index.html"));
 });
 
+// 3. Sunucuyu Ayağa Kaldır
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Uzay Havası Erken Uyarı Sunucusu ${PORT} portunda çalışıyor.`);
 
-app.listen(port, () => {
-    console.log(`Sunucu kalktı ve ${port} portu dinleniyor. http://localhost:${port}`);
+    // Sunucu ve veritabanı hazır olduktan sonra zamanlayıcıyı (Cron) başlat
+    startCron();
 });

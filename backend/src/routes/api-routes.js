@@ -1,8 +1,7 @@
 const express = require("express");
-const apiRouter = express.Router();
+const router = express.Router();
+const { getCurrentForecast } = require("../controllers/forecast-controllers");
 
-apiRouter.get("/", (req, res, next) => {
-    res.render("index", { title: "anasayfa" });
-});
+router.get("/forecast/current", getCurrentForecast);
 
-module.exports = apiRouter;
+module.exports = router;
