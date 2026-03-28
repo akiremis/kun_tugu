@@ -1,100 +1,99 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="tr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SFEW | Taktiksel Radar Komuta Merkezi</title>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-    
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/leaflet.heat@0.2.0/dist/leaflet-heat.js"></script>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>SFEW | Taktiksel Radar Komuta Merkezi</title>
+        <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/leaflet.heat@0.2.0/dist/leaflet-heat.js"></script>
 
-    <div class="dashboard-wrapper">
-        <header class="sys-header">
-            <div class="sys-brand">
-                <span class="sys-logo">SFEW</span>
-                <span class="sys-desc">SOLAR FLARE EARLY WARNING SYSTEM // TAKTİKSEL RADAR AĞI</span>
-            </div>
-            <div class="sys-status">
-                <div class="status-indicator"></div>
-                <span class="status-text">NOAA BAĞLANTISI AKTİF</span>
-                <span id="live-clock" class="sys-clock">00:00:00 UTC</span>
-            </div>
-        </header>
-
-        <section class="telemetry-bar">
-            <div class="data-module">
-                <span class="data-label">PLAZMA HIZI (CME)</span>
-                <span class="data-value"><span id="val-plasma-speed">--</span> <span class="data-unit">km/s</span></span>
-            </div>
-            <div class="data-module">
-                <span class="data-label">PLAZMA YOĞUNLUĞU</span>
-                <span class="data-value"><span id="val-plasma-dens">--</span> <span class="data-unit">p/cm³</span></span>
-            </div>
-            <div class="data-module">
-                <span class="data-label">KP İNDEKSİ (Jeomanyetik)</span>
-                <span class="data-value" id="kp-container"><span id="val-kp">--</span> <span class="data-unit" style="color:inherit">Kp</span></span>
-            </div>
-            <div class="data-module">
-                <span class="data-label">MAG VERİSİ (Bz)</span>
-                <span class="data-value"><span id="val-mag-bz">--</span> <span class="data-unit">nT</span></span>
-            </div>
-        </section>
-
-        <section class="map-section">
-            <div class="map-container-wrapper">
-                <div class="map-header">
-                    <h3>ANLIK KÜRESEL RADAR (LIVE)</h3>
-                    <span class="tag tag-live">CANLI RADYASYON AĞI</span>
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body>
+        <div class="dashboard-wrapper">
+            <header class="sys-header">
+                <div class="sys-brand">
+                    <span class="sys-logo">SFEW</span>
+                    <span class="sys-desc">SOLAR FLARE EARLY WARNING SYSTEM // TAKTİKSEL RADAR AĞI</span>
                 </div>
-                <div id="map-current" class="map-render-area"></div>
-            </div>
-
-            <div class="map-container-wrapper" style="border-color: rgba(251, 191, 36, 0.4);">
-                <div class="map-header">
-                    <h3 class="text-forecast">YAPAY ZEKA PROJEKSİYONU (+3 SAAT)</h3>
-                    <span class="tag tag-forecast">SİMÜLASYON</span>
+                <div class="sys-status">
+                    <div class="status-indicator"></div>
+                    <span class="status-text">NOAA BAĞLANTISI AKTİF</span>
+                    <span id="live-clock" class="sys-clock">00:00:00 UTC</span>
                 </div>
-                <div id="map-forecast" class="map-render-area"></div>
-            </div>
-        </section>
+            </header>
 
-        <section class="prediction-section">
-            <div class="timeline-panel">
-                <div class="panel-title">SON 3 SAATLİK FIRTINA TRENDİ (İVME)</div>
-                <div class="timeline-grid">
-                    <div class="time-block">
-                        <span class="t-hour">-1 SAAT</span>
-                        <span class="t-kp" id="fc-1h-kp">--</span>
-                        <span class="t-desc">Kayıtlı İvme (T-1)</span>
+            <section class="telemetry-bar">
+                <div class="data-module">
+                    <span class="data-label">PLAZMA HIZI (CME)</span>
+                    <span class="data-value"><span id="val-plasma-speed">--</span> <span class="data-unit">km/s</span></span>
+                </div>
+                <div class="data-module">
+                    <span class="data-label">PLAZMA YOĞUNLUĞU</span>
+                    <span class="data-value"><span id="val-plasma-dens">--</span> <span class="data-unit">p/cm³</span></span>
+                </div>
+                <div class="data-module">
+                    <span class="data-label text-forecast">BEKLENEN KP İNDEKSİ (+2 SAAT)</span>
+                    <span class="data-value" id="kp-container"><span id="val-kp">--</span> <span class="data-unit" style="color: inherit">Kp</span></span>
+                </div>
+                <div class="data-module">
+                    <span class="data-label">MAG VERİSİ (Bz)</span>
+                    <span class="data-value"><span id="val-mag-bz">--</span> <span class="data-unit">nT</span></span>
+                </div>
+            </section>
+
+            <section class="map-section">
+                <div class="map-container-wrapper">
+                    <div class="map-header">
+                        <h3>ANLIK KÜRESEL RADAR (LIVE)</h3>
+                        <span class="tag tag-live">CANLI RADYASYON AĞI</span>
                     </div>
-                    <div class="time-block">
-                        <span class="t-hour">-2 SAAT</span>
-                        <span class="t-kp" id="fc-2h-kp">--</span>
-                        <span class="t-desc">Kayıtlı İvme (T-2)</span>
+                    <div id="map-current" class="map-render-area"></div>
+                </div>
+
+                <div class="map-container-wrapper" style="border-color: rgba(251, 191, 36, 0.4)">
+                    <div class="map-header">
+                        <h3 class="text-forecast">YAPAY ZEKA PROJEKSİYONU (+2 SAAT)</h3>
+                        <span class="tag tag-forecast">SİMÜLASYON</span>
                     </div>
-                    <div class="time-block">
-                        <span class="t-hour">-3 SAAT</span>
-                        <span class="t-kp" id="fc-3h-kp">--</span>
-                        <span class="t-desc">Kayıtlı İvme (T-3)</span>
+                    <div id="map-forecast" class="map-render-area"></div>
+                </div>
+            </section>
+
+            <section class="prediction-section">
+                <div class="timeline-panel">
+                    <div class="panel-title">SON 3 SAATLİK FIRTINA TRENDİ (İVME)</div>
+                    <div class="timeline-grid">
+                        <div class="time-block">
+                            <span class="t-hour">-1 SAAT</span>
+                            <span class="t-kp" id="fc-1h-kp">--</span>
+                            <span class="t-desc">Kayıtlı İvme (T-1)</span>
+                        </div>
+                        <div class="time-block">
+                            <span class="t-hour">-2 SAAT</span>
+                            <span class="t-kp" id="fc-2h-kp">--</span>
+                            <span class="t-desc">Kayıtlı İvme (T-2)</span>
+                        </div>
+                        <div class="time-block">
+                            <span class="t-hour">-3 SAAT</span>
+                            <span class="t-kp" id="fc-3h-kp">--</span>
+                            <span class="t-desc">Kayıtlı İvme (T-3)</span>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="ai-warning-panel">
-                <div class="panel-title text-alert">ERKEN UYARI ANALİZ RAPORU</div>
-                <div class="ai-report-content">
-                    <p id="ai-report-text">Sistem verileri bekleniyor...</p>
+                <div class="ai-warning-panel">
+                    <div class="panel-title text-alert">ERKEN UYARI ANALİZ RAPORU</div>
+                    <div class="ai-report-content">
+                        <p id="ai-report-text">Sistem verileri bekleniyor...</p>
+                    </div>
                 </div>
-            </div>
-        </section>
-    </div>
+            </section>
+        </div>
 
-    <script src="script.js"></script>
-</body>
+        <script src="script.js"></script>
+    </body>
 </html>
