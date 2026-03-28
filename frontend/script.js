@@ -34,26 +34,10 @@ function initRadars() {
     loadMockData();
 }
 
-// 3. ÖRNEK VERİ SİMÜLASYONU
-const ornekVeri = {
-    "success": true,
-    "time": "2026-03-28T17:21:00.675Z",
-    "guess": {
-        "kp_index": 2.1,
-        "ourWarningSystem": { "durum": "TEHLİKE", "renk": "Kırmızı" },
-        "noaa_standarts": { "g_olcegi": "G0", "g_aciklama": "Normal Uzay Havası" }
-    },
-    "harita_verisi": {
-        "etkilenen_minimum_enlem": 60.8,
-        "etki_alani_aciklamasi": "Fırtına etkileri 60.8 derece manyetik enlem ve kuzeyine kadar genişleyecek."
-    },
-    "ham_veriler": { "bz_gsm": -3.56, "ruzgar_hizi": 347.3, "proton_yogunlugu": 0.39 }
-};
-
-function loadMockData() {
+function loadMockData(fectData) {
     // Veri objesini kolay kullanım için değişkene atıyoruz
     // Gerçek API'ye geçtiğinde buradaki "ornekVeri" değişkenini API'den dönen "data" ile değiştireceksin.
-    const data = ornekVeri; 
+    const data = fectData; 
 
     if (data.success) {
         document.getElementById('val-plasma-speed').innerText = data.ham_veriler.ruzgar_hizi;
@@ -106,25 +90,13 @@ function loadMockData() {
 
 window.addEventListener('load', initRadars);
 
-// =========================================================================
-// GERÇEK SUNUCU (BACKEND) BAĞLANTISI
-// Arkadaşın sunucuyu aktif ettiğinde aşağıdaki kod bloklarının başındaki ve sonundaki /* ve */ işaretlerini sil.
-// İçindeki URL'yi arkadaşının verdiği adresle değiştir.
-// =========================================================================
-
-/*
 async function fetchGercekData() {
     try {
-        const response = await fetch('http://ARKADASININ_SUNUCU_IPSI/api/endpoint');
+        const response = await fetch("http://localhost:8080/api/forecast/current");
         const data = await response.json();
-        
-        // Örnek veriyi yükleyen fonksiyonu, canlı data ile çağırıyoruz!
-        // Bunun çalışması için loadMockData() fonksiyonunun adını loadMockData(data) yapıp içini düzenleyebilirsin
-        // veya direkt oradaki işlemleri buraya yapıştırabilirsin.
-
+        loadMockData(data);
     } catch (error) {
         console.error("Backend bağlantı hatası:", error);
     }
 }
-setInterval(fetchGercekData, 30000); // 30 saniyede bir otomatik veriyi günceller
-*/
+setInterval(fetchGercekData, (1000 * 30 * 60)); // 30 dakikada bir otomatik veriyi günceller

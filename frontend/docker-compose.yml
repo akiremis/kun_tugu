@@ -1,7 +1,0 @@
-services:
-  sfew-frontend:
-    container_name: sfew_komuta_merkezi
-    build: .
-    ports:
-      - "8080:80"
-    restart: unless-stopped
