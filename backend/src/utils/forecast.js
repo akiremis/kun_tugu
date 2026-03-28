@@ -1,10 +1,14 @@
-const ort = require("./xgboost_firtina_modeli.onnx");
+const ort = require('onnxruntime-node');
+const path = require("path");
 
-async function forecast() {
+const MODEL_PATH = path.join(__dirname, "xgboost_firtina_modeli.onnx");
+
+const forecast = async (inputArray) => {
+
     try {
-        const session = await ort.InferenceSession.create("./xgboost_firtina_modeli.onnx");
+        const session = await ort.InferenceSession.create(MODEL_PATH);
 
-        const solarDatas = [
+        /* const solarDatas = [
             -5.2,
             12.5,
             650.0, // Anlık: Bz, Proton, Flow
@@ -23,12 +27,12 @@ async function forecast() {
             5.0,
             450.0,
             20.0, // Lag 3: Bz, Proton, Flow, Kp
-        ];
+        ]; */
 
         //? JavaScript sayıları varsayılan olarak 64-bit ondalıklı sayıdır (Float64).
         //? Ancak makine öğrenmesi modelleri performansı artırmak için 32-bit (Float32) kullanır.
         //? Bu yüzden standart dizimizi, saf bir Float32 matrisine (Tensor) çeviriyoruz.
-        const dataA = Float32Array.from(solarDatas);
+        const dataA = Float32Array.from(inputArray);
         const tensorA = new ort.Tensor("float32", dataA, [1, 15]); // [1 satır, 15 sütun]
 
         // 'float_input' ismi, Python'da initial_type tanımlarken verdiğimiz isimdir.
@@ -36,9 +40,8 @@ async function forecast() {
         const results = await session.run(feeds);
 
         const outputTensor = results[session.outputNames[0]];
-        const estimatedKp = outputTensor.data[0];
+        return outputTensor.data[0];
 
-        console.log(`Node.js İçinden Doğrudan Tahmin Edilen Kp: ${tahminEdilenKp.toFixed(2)}`);
     } catch (err) {
         console.error(`ONNX Çalıştırma Hatası: ${err}`);
     }
