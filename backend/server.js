@@ -1,5 +1,6 @@
 require("dotenv").config();
 
+// const cors = require("cors");
 const express = require("express");
 const path = require("path");
 const connectDB = require("./src/utils/db"); // Veritabanı fonksiyonunu içeri al
@@ -11,6 +12,7 @@ const app = express();
 // 2. Veritabanına Bağlan (Bağlantı kurulmadan API çalışmamalı)
 connectDB();
 
+// app.use(cors);
 app.use(express.json());
 
 // API Rotaları

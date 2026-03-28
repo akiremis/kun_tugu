@@ -21,6 +21,13 @@ const getCurrentForecast = async (req, res) => {
             },
             harita_verisi: latestGuess.harita_verisi,
             ham_veriler: latestGuess.ham_veriler,
+
+            gecmis_kp_trendleri: {
+                // Dizideki 6, 10 ve 14. indeksler geçmiş Kp değerleridir
+                eksi_1_saat: (latestGuess.model_girdi_dizisi[6] / 10).toFixed(1),
+                eksi_2_saat: (latestGuess.model_girdi_dizisi[10] / 10).toFixed(1),
+                eksi_3_saat: (latestGuess.model_girdi_dizisi[14] / 10).toFixed(1),
+            },
         });
     } catch (err) {
         console.error("API Veri Çekme Hatası:", err);

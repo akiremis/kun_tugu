@@ -1,7 +1,6 @@
 version: '3.8'
 
 services:
-  # 1. VERİTABANI (Stabil Sürüm)
   mongodb:
     image: mongo:4.4
     container_name: astro-mongo
@@ -11,7 +10,6 @@ services:
     volumes:
       - astro_data:/data/db
 
-  # 2. BACKEND (Node.js & ONNX Model)
   backend:
     build: ./backend
     container_name: astro-backend
@@ -19,21 +17,27 @@ services:
     ports:
       - "8080:8080"
     environment:
-      # Node.js, Docker iç ağındaki 'mongodb' ismini tanıyacak
       - MONGO_URI=mongodb://mongodb:27017/astro-mongo
       - PORT=8080
+    volumes:
+      # SİHİRLİ DOKUNUŞ 1: Senin backend klasörünü, konteynerin /app klasörüne canlı bağlar
+      - ./backend:/app
+      # Korumalı Alan: Senin yerel node_modules klasörünün Docker içindekileri ezmesini engeller
+      - /app/node_modules
+    # Node.js v24'ün yerleşik izleme modunu tetikler. Kod değiştiğinde sunucuyu anında yeniden başlatır.
+    command: node --watch server.js
     depends_on:
       - mongodb
 
-  # 3. FRONTEND (Arayüz)
   frontend:
     build: ./frontend
     container_name: astro-frontend
     restart: unless-stopped
     ports:
-      # Arkadaşın front-end için Dockerfile'da muhtemelen Nginx (port 80) kullandı.
-      # Dışarıya 3000 portundan açıyoruz.
       - "3000:80"
+    volumes:
+      # SİHİRLİ DOKUNUŞ 2: Senin frontend klasörünü Nginx'in yayın klasörüne canlı bağlar
+      - ./frontend:/usr/share/nginx/html
     depends_on:
       - backend
 
