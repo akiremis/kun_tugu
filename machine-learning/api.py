@@ -1,8 +1,11 @@
 from flask import Flask, request, jsonify
 import joblib
 import pandas as pd
+from flask_cors import CORS # flask-cors kütüphanesini kurmalısın
+
 
 app = Flask(__name__)
+CORS(app) # Tüm isteklere izin verir
 
 # Sunucu başlarken modeli sadece bir kere hafızaya yükler (Performans için kritik)
 model = joblib.load('xgboost_firtina_modeli.pkl')

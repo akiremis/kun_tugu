@@ -32,10 +32,13 @@ frontend/dist/
 __pycache__/
 *.py[cod]
 *$py.class
+.pytest_cache/
+__pycache__/
 venv/
 env/
 .venv/
-.pytest_cache/
+veri-ortami/
+*.txt
 # Devasa veri setleri ve modeller
 machine-learning/data/
 *.csv
