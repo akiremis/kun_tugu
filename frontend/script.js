@@ -92,11 +92,9 @@ function loadMockData(data) {
         const timeStr = new Date(data.time).toLocaleTimeString("tr-TR", { hour: "2-digit", minute: "2-digit" });
         const noaaData = data.guess.noaa_standarts;
 
-        const reportContent = `
+        let reportContent = `
             <strong style="color: ${durumRenk}">BEKLENEN ETKİ [${uyariSistemi.durum}]:</strong> 
             NOAA Skalası: ${noaaData.g_olcegi} (${noaaData.g_aciklama}). 
-            <br><br>
-            <strong style="color: #fbbf24">ÇARPIŞMA SAYACl:</strong> L1 noktasındaki güncel plazma hızı (${ruzgarHizi} km/s) baz alınarak, haritadaki etkinin yeryüzüne ulaşmasına <strong>yaklaşık ${tahminiDakika} dakika</strong> kalmıştır.
             <br><br>
             <strong style="color: #38bdf8">ETKİ ANALİZİ:</strong> ${data.harita_verisi.etki_alani_aciklamasi} 
             <br><em>Sistem Güncelleme: ${timeStr}</em>
@@ -105,11 +103,21 @@ function loadMockData(data) {
 
         if (uyariSistemi.durum !== "GUVENLI") {
             let threatPoints = [];
+            // Gelen enlem verisini bir değişkene alıyoruz (Örn: 50)
+            const minEnlem = data.harita_verisi.etkilenen_minimum_enlem;
+
             for (let lng = -180; lng <= 180; lng += 10) {
-                threatPoints.push([data.harita_verisi.etkilenen_minimum_enlem + 5, lng, 0.8]);
+                // Kuzey Yarımküre uyarı çizgisi (Örn: +55 enlemi)
+                threatPoints.push([minEnlem + 5, lng, 0.8]);
+
+                // Güney Yarımküre uyarı çizgisi (Örn: -55 enlemi)
+                threatPoints.push([-minEnlem - 5, lng, 0.8]);
             }
+
             heatCurrent.setLatLngs(threatPoints);
             heatForecast.setLatLngs(threatPoints);
+
+            reportContent += `<strong style="color: #fbbf24">ÇARPIŞMA SAYACI:</strong> L1 noktasındaki güncel plazma hızı (${ruzgarHizi} km/s) baz alınarak, haritadaki etkinin yeryüzüne ulaşmasına <strong>yaklaşık ${tahminiDakika} dakika</strong> kalmıştır.`;
         } else {
             heatCurrent.setLatLngs([]);
             heatForecast.setLatLngs([]);
