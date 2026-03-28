@@ -30,7 +30,7 @@ Proje, bağımlılık çakışmalarını sıfıra indirmek ve dakikalar içinde 
 1. **Repoyu Klonlayın ve Dizinine Girin:**
 
 ```bash
-git clone <repo-url>
+git clone https://github.com/akiremis/solarshield.git
 cd solarshileld
 ```
 
