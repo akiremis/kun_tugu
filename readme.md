@@ -1,12 +1,12 @@
-# Solar Shield (Uzay Havası Erken Uyarı Sistemi)
+# Kün Tuğu (Uzay Havası Erken Uyarı Sistemi)
 
-Solar Shield, Dünya'yı etkileyebilecek güneş fırtınalarını (jeomanyetik fırtınaları) makine öğrenmesi algoritmaları ve gerçek zamanlı uydu verileri kullanarak önceden tahmin etmek için tasarlanmış bağımsız, otonom bir sistemdir.
+Kün Tuğu, Dünya'yı etkileyebilecek güneş fırtınalarını (jeomanyetik fırtınaları) makine öğrenmesi algoritmaları ve gerçek zamanlı uydu verileri kullanarak önceden tahmin etmek için tasarlanmış bağımsız, otonom bir sistemdir.
 
 ## Neden İhtiyacımız Var?
 
 Uzay havası (Güneş rüzgarları, plazma atılımları, manyetik dalgalanmalar), Dünya'daki telekomünikasyon altyapılarını, göçmen kuşların yön bulma duyularını, radyo sinyallerini ve uydu elektroniğini doğrudan etkileyebilir. Güçlü bir jeomanyetik fırtına "G5", elektrik şebekelerini devre dışı bırakabilir.
 
-Solar Shield, ABD - NOAA sunucularından çektiği verileri arka planda işleyerek, Dünya etrafındaki manyetik alan bozulmalarını (Kp İndeksi) **2 saat önceden** tahmin eden modern ve açık kaynaklı bir savunma arayüzüdür.
+Kün Tuğu, ABD - NOAA sunucularından çektiği verileri arka planda işleyerek, Dünya etrafındaki manyetik alan bozulmalarını (Kp İndeksi) **2 saat önceden** tahmin eden modern ve açık kaynaklı bir savunma arayüzüdür.
 
 ## Teknik Özellikler
 
