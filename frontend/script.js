@@ -55,9 +55,9 @@ function initRadars() {
 
 function loadMockData(data) {
     if (data && data.success) {
-        document.getElementById("val-plasma-speed").innerText = data.ham_veriler.ruzgar_hizi;
-        document.getElementById("val-plasma-dens").innerText = data.ham_veriler.proton_yogunlugu;
-        document.getElementById("val-mag-bz").innerText = data.ham_veriler.bz_gsm;
+        document.getElementById("val-plasma-speed").innerText = data.ham_veriler.ruzgar_hizi.toFixed(1);
+        document.getElementById("val-plasma-dens").innerText = data.ham_veriler.proton_yogunlugu.toFixed(2);
+        document.getElementById("val-mag-bz").innerText = data.ham_veriler.bz_gsm.toFixed(1);
 
         const kpElement = document.getElementById("val-kp");
         const kpContainer = document.getElementById("kp-container");

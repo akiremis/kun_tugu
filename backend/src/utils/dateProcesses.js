@@ -7,7 +7,7 @@ const convertToNoaaFormat = (dateObj) => {
 };
 
 function findPastHours(currentDateStr) {
-    // Örnek Dönüşüm: "2026-03-28 15:00:00" -> "2026-03-28T15:00:00Z"
+    // Örnek Dönüşüm: "2026-03-28 15:47:00.000" -> "2026-03-28T15:47:00.000Z"
     const isoFormat = currentDateStr.replace(" ", "T") + "Z";
     const referenceDate = new Date(isoFormat);
 
@@ -16,7 +16,13 @@ function findPastHours(currentDateStr) {
         console.error("[HATA] JavaScript bu tarihi okuyamadı. Gelen format:", currentDateStr);
     }
 
-    const targetDates = { lag1: "", lag2: "", lag3: "" };
+    // Hem mevcut saatin prefix'ini hem de geçmiş 3 saati döndür
+    const targetDates = {
+        current: convertToNoaaFormat(referenceDate), // Saatlik ortalama için mevcut saat
+        lag1: "",
+        lag2: "",
+        lag3: "",
+    };
 
     for (let i = 1; i <= 3; i++) {
         const pastDate = new Date(referenceDate.getTime());
