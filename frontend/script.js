@@ -143,4 +143,4 @@ async function fetchData() {
         console.error("Backend bağlantı hatası:", error);
     }
 }
-setInterval(fetchData, 1000 * 30 * 60); // 30 dakikada bir otomatik veriyi günceller
+setInterval(fetchData, 1000 * 60 * 60); // 30 dakikada bir otomatik veriyi günceller

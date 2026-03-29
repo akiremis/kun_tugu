@@ -66,7 +66,10 @@ const startCron = () => {
     runForecastJob();
 
     // B. Ardından her 30 dakikada bir çalışacak şekilde zamanla
-    cron.schedule("*/30 * * * *", runForecastJob);
+    // cron.schedule("*/30 * * * *", runForecastJob);
+
+    // 1 Saatlik cron job
+    cron.schedule("0 * * * *", runForecastJob);
     console.log("=> Otonom Zamanlayıcı (Cron) aktif. Sistem her 30 dakikada bir fırtına analizi yapacak.");
 };
 
